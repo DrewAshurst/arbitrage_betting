@@ -24,6 +24,8 @@ if __name__ == '__main__':
 
     responseContent = responseContent.strip()
 
+    print(responseContent)
+
 
 
 
