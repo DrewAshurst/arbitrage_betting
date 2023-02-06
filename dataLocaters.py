@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-def findBestBets():
-    df = pd.read_csv('outputCSV.csv')
+def findBestBets(df):
+
     df['team1price'] = pd.to_numeric(df['team1price'])
     df['team2price'] = pd.to_numeric(df['team2price'])
 
@@ -45,14 +45,14 @@ def findBestBets():
     first = f"First bet is for {df1['team1'].values} at {df1['team1price'].values} on {df1['book'].values}."
     second = f"Second bet is for {df2['team2'].values} at {df2['team2price'].values} on {df2['book'].values}."
 
+    print(first)
+    print(second)
+    print()
+    print()
 
+def findGames():
+    df = pd.read_csv('outputCSV.csv')
+    games = df['game'].unique()
+    for i in games:
+        findBestBets(df.loc[df['game'] == i])
 
-
-
-
-
-
-
-
-
-    return [first, second]

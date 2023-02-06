@@ -19,7 +19,6 @@ def parseOutput(out):
 
     games = []
     for i in out:
-        print(i)
         books = i['bookmakers']
 
         for j in books:
@@ -34,13 +33,7 @@ def parseOutput(out):
             data['team1price'] = offers[0]['price']
             data['team2'] = offers[1]['name']
             data['team2price'] = offers[1]['price']
-            print(data['team1price'])
 
             games.append(data)
 
     return games
-
-# data = getData()
-# for i in out:
-#     print(i)
-# print(type(data))
