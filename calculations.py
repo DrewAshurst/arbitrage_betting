@@ -7,10 +7,16 @@ def moneyToDecimal(num):
 
     return odds 
 
-def betCalc():
-    betIncrement = 5
-    odd1 = int(input("Enter positive odds: "))
-    odd2 = int(input("Enter negative odds: ")) * -1
+def betCalc(o1, o2, increment):
+    betIncrement = increment
+
+    if o1 > 0:
+
+        odd1 = o1
+        odd2 = o2
+    else:
+        odd2 = o1 
+        odd1 = o2
     pos = moneyToDecimal(odd1)
     neg = moneyToDecimal(odd2)
     
@@ -27,7 +33,9 @@ def betCalc():
         
         initNegBet += 0.01
 
-    print(value)
+    return value
 
-while True:
-    betCalc()
+def profitCalc(odd1, bet1, odd2, bet2):
+    team1profit = (bet1 * moneyToDecimal(odd1)) - bet1 - bet2 
+    team2profit = (bet2 * moneyToDecimal(odd2)) - bet1 - bet2
+    return team1profit, team2profit
