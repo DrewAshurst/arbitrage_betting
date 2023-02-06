@@ -4,8 +4,8 @@ import calculations
 
 def findBestBets(df):
 
-    df['team1price'] = pd.to_numeric(df['team1price'])
-    df['team2price'] = pd.to_numeric(df['team2price'])
+    pd.to_numeric(df['team1price'])
+    pd.to_numeric(df['team2price'])
 
     team1PricingPos = [i for i in df['team1price'] if i > 0]
     team1PricingNeg = [i for i in df['team1price'] if i < 0]
@@ -56,15 +56,13 @@ def findGames():
     games = df['game'].unique()
     for i in games:
         df1, df2 = findBestBets(df.loc[df['game'] == i])
-        data[i] = {'team1':df1['team1'].values[0], 'team1odds': df1['team1price'].values[0], 'team1book': df1['book'].values[0],
-                   'team2': df2['team2'].values[0], 'team2odds': df2['team2price'].values[0], 'team2book': df2['book'].values[0]}
+        data[i] = {'team1':df1['team1'].values[0], 'team2': df2['team2'].values[0],
+                   'team1odds': df1['team1price'].values[0], 'team2odds': df2['team2price'].values[0],
+                   'team1book': df1['book'].values[0], 'team2book': df2['book'].values[0]}
         
         if data[i]['team1odds'] > 0:
             data[i]['team1bet'] = betIncrement
             data[i]['team2bet'] = calculations.betCalc(data[i]['team1odds'], data[i]['team2odds'], betIncrement)
             data[i]['team1profit'], data[i]['team2profit'] = calculations.profitCalc(data[i]['team1odds'], data[i]['team1bet'], data[i]['team2odds'], data[i]['team2bet'])
 
-    for i in data:
-        print(data[i])
-        print 
-        print
+    return data 
