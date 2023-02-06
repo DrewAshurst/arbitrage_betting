@@ -11,14 +11,18 @@ def findBestBets():
     team2PricingPos = [i for i in df['team2price'] if i > 0]
     team2PricingNeg = [i for i in df['team2price'] if i < 0]
 
-    if team1PricingPos == []:
+    if team1PricingPos == [] and team1PricingNeg == []:
+        team1pricing = [0, 0]
+    elif team1PricingPos == []:
         team1pricing = [min(team1PricingNeg), 0]
     elif team1PricingNeg == []:
         team1pricing = [0, max(team1PricingPos)]
     else:
         team1pricing = [min(team1PricingNeg), max(team1PricingPos)]
 
-    if team2PricingPos == []:
+    if team2PricingPos == [] and team2PricingNeg == []:
+        team2pricing = [0, 0]
+    elif team2PricingPos == []:
         team2pricing = [min(team2PricingNeg), 0]
     elif team2PricingNeg == []:
         team2pricing = [0, max(team2PricingPos)]
