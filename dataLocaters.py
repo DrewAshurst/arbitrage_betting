@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def findBestBets():
     df = pd.read_csv('outputCSV.csv')
     df['team1price'] = pd.to_numeric(df['team1price'])
@@ -23,7 +24,6 @@ def findBestBets():
         team2pricing = [0, max(team2PricingPos)]
     else:
         team2pricing = [min(team2PricingNeg), max(team2PricingPos)]
-    
 
     if team1pricing[1] > 0 and team2pricing[1] > 0:
         df1 = df.loc[df['team1price'] == team1pricing[1]]
@@ -37,10 +37,18 @@ def findBestBets():
     else:
         df1 = df.loc[df['team1price'] == team1pricing[0]]
         df2 = df.loc[df['team2price'] == team2pricing[0]]
-    
-    
+
     first = f"First bet is for {df1['team1'].values} at {df1['team1price'].values} on {df1['book'].values}."
     second = f"Second bet is for {df2['team2'].values} at {df2['team2price'].values} on {df2['book'].values}."
 
-    return [first, second]
 
+
+
+
+
+
+
+
+
+
+    return [first, second]
