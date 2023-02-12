@@ -1,4 +1,4 @@
 Game,Sport,Home Team,Away Team,Home Odds,Away Odds,Home Bet,Away Bet,Home Profit,Away Profit,Home Sports Books,Away Sports Books
-Sacramento Kings vs Dallas Mavericks,basketball_nba,Sacramento Kings,Dallas Mavericks,-120,125,100.0,81,$2.333333333333343,$1.25,"['fanduel', 'draftkings', 'williamhill_us']",['betus']
-Hawai'i Rainbow Warriors vs UC San Diego Tritons,basketball_ncaab,Hawai'i Rainbow Warriors,UC San Diego Tritons,-200,1550,100.0,9,$41.0,$39.5,['mybookieag'],['betmgm']
-New Zealand Warriors vs Newcastle Knights,rugbyleague_nrl,New Zealand Warriors,Newcastle Knights,-170,190,100.0,55,$3.8235294117647243,$4.5,['fanduel'],['betus']
+Golden State Warriors vs Los Angeles Lakers,basketball_nba,Golden State Warriors,Los Angeles Lakers,-195,210,100.0,49,$2.28,$2.90,['lowvig'],['fanduel']
+LSU Tigers vs Texas A&M Aggies,basketball_ncaab,LSU Tigers,Texas A&M Aggies,1200,-294,10,100.0,$20.00,$24.01,['pointsbetus'],['mybookieag']
+New Zealand Warriors vs Newcastle Knights,rugbyleague_nrl,New Zealand Warriors,Newcastle Knights,-170,190,100.0,55,$3.82,$4.50,['fanduel'],['betus']

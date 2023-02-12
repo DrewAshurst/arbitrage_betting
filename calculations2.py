@@ -1,5 +1,4 @@
 def findBestBet(homeList, awayList):
-    
     bestBet = [1, 1]
     for x in homeList:
         for y in awayList:

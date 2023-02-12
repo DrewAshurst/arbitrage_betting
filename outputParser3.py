@@ -11,7 +11,9 @@ def getData(url):
 
     return a
 
-def compileData(url, betIncrement):
+
+
+def compileData(url):
 
     initialData = getData(url)
     compiledData = {}
@@ -41,7 +43,7 @@ def compileData(url, betIncrement):
     return compiledData
 
 def cleanData(url, betIncrement):
-    dirtyData = compileData(url, betIncrement)
+    dirtyData = compileData(url)
     keys = list(dirtyData.keys())
     bets = {}
     for key in keys:
@@ -78,8 +80,8 @@ def cleanData(url, betIncrement):
         bets['Home Bet'] = bettingAmounts[0]
         bets['Away Bet'] = bettingAmounts[1]
         
-        bets['Home Profit'] = "$" + '{:,}'.format(profits[0])
-        bets['Away Profit'] = "$" + '{:,}'.format(profits[1])
+        bets['Home Profit'] = "$" + '{:,.2f}'.format(profits[0])
+        bets['Away Profit'] = "$" + '{:,.2f}'.format(profits[1])
         
         bets['Home Sports Books'] = []
         for key1 in dirtyData[key]['homeOffers'].keys():
