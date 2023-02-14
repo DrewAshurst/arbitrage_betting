@@ -14,7 +14,6 @@ def getData(url):
 
 
 def compileData(url):
-
     initialData = getData(url)
     compiledData = {}
     for game in initialData:
@@ -26,7 +25,8 @@ def compileData(url):
         sport = game['sport_key']
         compiledData[gameMatchup] = {"sport": sport,
                     "homeOffers":{},
-                    "awayOffers": {}}
+                    "awayOffers": {},
+                    "Date of Event": game['commence_time']}
     
         sportsbook_offers = game['bookmakers']
 
@@ -46,6 +46,8 @@ def cleanData(url, betIncrement):
     dirtyData = compileData(url)
     keys = list(dirtyData.keys())
     bets = {}
+    myaccounts = ['betus', 'draftkings', 'fanduel', 'sugarhouse']
+    canPlace = False
     for key in keys:
 
         if len(dirtyData[key]['homeOffers'].values()) == 0 or len(dirtyData[key]['awayOffers'].values()) == 0:
@@ -57,41 +59,47 @@ def cleanData(url, betIncrement):
 
 
         bestBet = calculations2.findBestBet(home_offers, away_offers)
-        if bestBet == [1, 1]:
+        if bestBet == []:
             continue
+        
+        for bet in bestBet:
+            bettingAmounts, profits = calculations2.optimalBet(betIncrement, bet[0], bet[1])
+            if not profits:
+                continue 
 
-        bettingAmounts, profits = calculations2.optimalBet(betIncrement, bestBet[0], bestBet[1])
-        if not profits:
-            continue 
 
-        
-   
-        bets['Game'] = key
-        bets['Sport'] = dirtyData[key].get('sport')
+            
+    
+            bets['Game'] = key
+            bets['Sport'] = dirtyData[key].get('sport')
 
-        bets['Home Team'] = key.split(' vs ')[0]
-        bets['Away Team'] = key.split(' vs ')[1]
-        bets['Home Odds'] = bestBet[0]
-        bets['Away Odds'] = bestBet[1]
+            bets['Home Team'] = key.split(' vs ')[0]
+            bets['Away Team'] = key.split(' vs ')[1]
+            bets['Home Odds'] = bet[0]
+            bets['Away Odds'] = bet[1]
 
         
         
 
-        bets['Home Bet'] = bettingAmounts[0]
-        bets['Away Bet'] = bettingAmounts[1]
-        
-        bets['Home Profit'] = "$" + '{:,.2f}'.format(profits[0])
-        bets['Away Profit'] = "$" + '{:,.2f}'.format(profits[1])
-        
-        bets['Home Sports Books'] = []
-        for key1 in dirtyData[key]['homeOffers'].keys():
-            if dirtyData[key]['homeOffers'][key1] == bestBet[0]:
-                bets['Home Sports Books'].append(key1)
-        
-        bets['Away Sports Books'] = []
-        for key2 in dirtyData[key]['awayOffers'].keys():
-            if dirtyData[key]['awayOffers'][key2] == bestBet[1]:
-                bets['Away Sports Books'].append(key2)
+            bets['Home Bet'] = bettingAmounts[0]
+            bets['Away Bet'] = bettingAmounts[1]
+            
+            bets['Home Profit'] = "$" + '{:,.2f}'.format(profits[0])
+            bets['Away Profit'] = "$" + '{:,.2f}'.format(profits[1])
+            
+            bets['Home Sports Books'] = []
+            for key1 in dirtyData[key]['homeOffers'].keys():
+                if dirtyData[key]['homeOffers'][key1] == bet[0] and key1 in myaccounts:
+                    bets['Home Sports Books'].append(key1)
+
+            bets['Away Sports Books'] = []
+            for key2 in dirtyData[key]['awayOffers'].keys():
+                if dirtyData[key]['awayOffers'][key2] == bet[1] and key2 in myaccounts:
+                    bets['Away Sports Books'].append(key2)
+            if bets['Home Sports Books'] == [] or bets['Away Sports Books'] == []:
+                return {}
+            
+            bets['Date of Event'] = dirtyData[key]['Date of Event']
     return bets
         
 def writeToCsv(data):

@@ -6,6 +6,10 @@ import calculations2
 def getData(url):
     url = url
     response = requests.get(url)
+    try:
+        print('Remaining requests', response.headers['x-requests-remaining'])
+    except:
+        print(response)
     responseContent = response.content
     a = json.loads(responseContent) 
 
@@ -25,7 +29,8 @@ def compilePointsData(url):
         sport = game['sport_key']
         compiledData[gameMatchup] = {"sport": sport,
                     "overOffers":{},
-                    "underOffers": {}}
+                    "underOffers": {},
+                    "Date of Event": game['commence_time']}
         sportsbook_offers = game['bookmakers']
         if len(sportsbook_offers) == 0:
             continue
@@ -55,6 +60,7 @@ def cleanData(url, betIncrement):
     dirtyData = compilePointsData(url)
     keys = list(dirtyData.keys())
     bets = {}
+    myaccounts = ['betus', 'draftkings', 'fanduel', 'sugarhouse']
     for key in keys:
 
         if len(dirtyData[key]['overOffers'].values()) == 0 or len(dirtyData[key]['underOffers'].values()) == 0:
@@ -72,38 +78,44 @@ def cleanData(url, betIncrement):
             bestBet = calculations2.findBestBet(overOdds, underOdds)
 
         
-            if bestBet == [1, 1]:
+            if bestBet == []:
                 continue
+            
+            for bet in bestBet:
+                bettingAmounts, profits = calculations2.optimalBet(betIncrement, bet[0], bet[1])
+                if not profits:
+                    continue 
+                
+                bets['Game'] = key
+                bets['Sport'] = dirtyData[key]['sport']
+                bets['Total'] = total 
+                bets['Over Odds'] = bet[0]
+                bets['Under Odds'] = bet[1]
 
-            bettingAmounts, profits = calculations2.optimalBet(betIncrement, bestBet[0], bestBet[1])
-            if not profits:
-                continue 
+                bets['Over Odds'] = bet[0]
+                bets['Under Odds'] = bet[1]
 
-            bets['Game'] = key
-            bets['Sport'] = dirtyData[key].get('sport')
-            bets['Total'] = total 
-            bets['Over Odds'] = bestBet[0]
-            bets['Under Odds'] = bestBet[1]
+                bets['Over Bet'] = "$" + '{:,.2f}'.format(bettingAmounts[0])
+                bets['Under Bet'] = "$" + '{:,.2f}'.format(bettingAmounts[1])
+            
+                bets['Over Profit'] = "$" + '{:,.2f}'.format(profits[0])
+                bets['Under Profit'] = "$" + '{:,.2f}'.format(profits[1]) 
 
-            bets['Over Odds'] = bestBet[0]
-            bets['Under Odds'] = bestBet[1]
+                bets['Over Sportsbook'] = []
+                bets['Under Sportsbook'] = []
 
-            bets['Over Bet'] = "$" + '{:,.2f}'.format(bettingAmounts[0])
-            bets['Under Bet'] = "$" + '{:,.2f}'.format(bettingAmounts[1])
-        
-            bets['Over Profit'] = "$" + '{:,.2f}'.format(profits[0])
-            bets['Under Profit'] = "$" + '{:,.2f}'.format(profits[1]) 
+                bets['Date of Event'] = dirtyData[key]['Date of Event']
 
-            bets['Over Sportsbook'] = []
-            bets['Under Sportsbook'] = []
-
-            for key in list(over_offers[total].keys()):
-                if over_offers[total][key] == bestBet[0]:
-                    bets['Over Sportsbook'].append(key)
-
-            for key in list(under_offers[total].keys()):
-                if under_offers[total][key] == bestBet[1]:
-                    bets['Under Sportsbook'].append(key)
+                for key1 in list(over_offers[total].keys()):
+                    if over_offers[total][key1] == bet[0] and key1 in myaccounts:
+                        bets['Over Sportsbook'].append(key1)
+                print(list(under_offers[total].keys()))
+                for key2 in list(under_offers[total].keys()):
+                    if under_offers[total][key2] == bet[1] and key2 in myaccounts:
+                        bets['Under Sportsbook'].append(key2)
+                
+                if bets['Over Sportsbook'] == [] or bets['Under Sportsbook'] == []:
+                    return {}
 
     return bets
 

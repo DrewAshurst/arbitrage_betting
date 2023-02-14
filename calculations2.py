@@ -1,13 +1,12 @@
 def findBestBet(homeList, awayList):
-    bestBet = [1, 1]
+    bestBet = []
     for x in homeList:
         for y in awayList:
             decimalOddsHome = moneyToDecimal(x)
             decimalOddsAway = moneyToDecimal(y) 
-            if (1/decimalOddsHome) + (1/decimalOddsAway) <= 1:
-                if (1/decimalOddsHome) + (1/decimalOddsAway) < (1/moneyToDecimal(bestBet[0])) + (1/moneyToDecimal(bestBet[1])):
-                    bestBet[0] = x
-                    bestBet[1] = y
+            if (1/decimalOddsHome) + (1/decimalOddsAway) <= 1 and [x,y] not in bestBet:
+                bestBet.append([x, y])
+
     
 
     return bestBet

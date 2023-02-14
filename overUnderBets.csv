@@ -1,3 +1,3 @@
-Game,Sport,Total,Over Odds,Under Odds,Over Bet,Under Bet,Over Profit,Under Profit,Over Sportsbook,Under Sportsbook
-Utah Valley Wolverines vs Southern Utah Thunderbirds,basketball_ncaab,161.5,110,-106,$93.00,$100.00,$2.30,$1.34,['bovada'],['fanduel']
-Yair Rodriguez vs Josh Emmett,mma_mixed_martial_arts,2.5,-125,215,$100.00,$57.00,$23.00,$22.55,['mybookieag'],['lowvig']
+Game,Sport,Total,Over Odds,Under Odds,Over Bet,Under Bet,Over Profit,Under Profit,Over Sportsbook,Under Sportsbook,Date of Event
+Metz vs SM Caen,soccer_france_ligue_two,2.5,140,110,$88.00,$100.00,$23.20,$22.00,['sugarhouse'],['betus'],2023-02-13T19:45:00Z
+Modena vs Genoa,soccer_italy_serie_b,2.5,128,110,$92.00,$100.00,$17.76,$18.00,['sugarhouse'],['betus'],2023-02-19T15:15:00Z
