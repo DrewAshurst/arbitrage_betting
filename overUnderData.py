@@ -6,10 +6,8 @@ import calculations2
 def getData(url):
     url = url
     response = requests.get(url)
-    try:
+    if 'soccer_usa_mls' in url:
         print('Remaining requests', response.headers['x-requests-remaining'])
-    except:
-        print(response)
     responseContent = response.content
     a = json.loads(responseContent) 
 
@@ -109,7 +107,6 @@ def cleanData(url, betIncrement):
                 for key1 in list(over_offers[total].keys()):
                     if over_offers[total][key1] == bet[0] and key1 in myaccounts:
                         bets['Over Sportsbook'].append(key1)
-                print(list(under_offers[total].keys()))
                 for key2 in list(under_offers[total].keys()):
                     if under_offers[total][key2] == bet[1] and key2 in myaccounts:
                         bets['Under Sportsbook'].append(key2)

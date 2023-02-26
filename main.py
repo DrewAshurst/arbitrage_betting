@@ -3,7 +3,7 @@ import os
 import keyboard
 import overUnderData
 
-print("Gathering data now... let's get weird")
+print("Gathering data now...")
 
 with open('sports.txt', 'r') as f:
         lines = [i.split() for i in f.readlines()]
@@ -42,15 +42,6 @@ def main():
             
         if sportTotal != {}:
             dataTotal.append(sportTotal)
-
-            
-        
-        if count == 5:
-            print(f"""Why is every poo-poo time pee-pee time, 
-but not every pee-pee time is poo-poo time?""")
-            print()
-            print()
-        count += 1
             
     if len(dataMoneyLine) > 0:
         print(len(dataMoneyLine), "money line bets found.")

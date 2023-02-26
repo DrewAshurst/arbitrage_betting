@@ -77,10 +77,7 @@ def cleanData(url, betIncrement):
             bets['Away Team'] = key.split(' vs ')[1]
             bets['Home Odds'] = bet[0]
             bets['Away Odds'] = bet[1]
-
         
-        
-
             bets['Home Bet'] = bettingAmounts[0]
             bets['Away Bet'] = bettingAmounts[1]
             
