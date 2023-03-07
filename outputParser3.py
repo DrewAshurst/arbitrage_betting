@@ -86,12 +86,14 @@ def cleanData(url, betIncrement):
             
             bets['Home Sports Books'] = []
             for key1 in dirtyData[key]['homeOffers'].keys():
-                if dirtyData[key]['homeOffers'][key1] == bet[0] and key1 in myaccounts:
+                # if dirtyData[key]['homeOffers'][key1] == bet[0] and key1 in myaccounts:
+                if dirtyData[key]['homeOffers'][key1] == bet[0]:
                     bets['Home Sports Books'].append(key1)
 
             bets['Away Sports Books'] = []
             for key2 in dirtyData[key]['awayOffers'].keys():
-                if dirtyData[key]['awayOffers'][key2] == bet[1] and key2 in myaccounts:
+                # if dirtyData[key]['awayOffers'][key2] == bet[1] and key2 in myaccounts:
+                if dirtyData[key]['awayOffers'][key2] == bet[1]:
                     bets['Away Sports Books'].append(key2)
             if bets['Home Sports Books'] == [] or bets['Away Sports Books'] == []:
                 return {}
